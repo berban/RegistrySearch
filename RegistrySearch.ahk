@@ -1,8 +1,19 @@
+; RegistrySearch
+; Updated February 18, 2018
+; https://github.com/berban/RegistrySearch
+; https://autohotkey.com/boards/viewtopic.php?t=44413
+
+
+;================================================== RegJump() Function ==================================================
+; Change this function if you don't want to use the separate "regjump" systernals utility, which can be found here: https://docs.microsoft.com/en-us/sysinternals/downloads/regjump
+
 RegJump(KeyLocation, KeyName)
 {
 	Global RegJumpPath
 	Run, % """" RegJumpPath """ """ KeyLocation (KeyName = "" ? "" : "\" RegExReplace(KeyName, "\\.*")) """"
 }
+
+;========================================================================================================================
 
 IniRead()
 If RunAsAdmin and !A_IsAdmin {
@@ -30,7 +41,7 @@ Hotkey, %CloseHotkey%, GuiClose, UseErrorLevel
 Gui, Font, s%TreeViewFontSize%
 Gui, Add, TreeView, % "x" Margins " y" Margins " w" TreeViewWidth " h" Height " ImageList" ImageListID " gGuiEvent vResultsTreeView"
 Gui, Font, s%MainFontSize%
-Gui, Add, Checkbox, % "x" Margins * 2 + TreeViewWidth " y" Margins " w" CheckboxWidth " h" InputHeight " vKeyCheck " (KeyCheck ? "+" : "-") "Checked", Key?
+Gui, Add, Checkbox, % "x" Margins * 2 + TreeViewWidth " y" Margins " w" CheckboxWidth " h" InputHeight " vKeyCheck " (KeyCheck ? "+" : "-") "Checked", Name?
 Gui, Add, Edit, % "x+" Margins " yp w" EditWidth " h" InputHeight " vKeyString", %KeyString%
 Gui, Add, Checkbox, % "x" Margins * 2 + TreeViewWidth " y+" Margins " w" CheckboxWidth " h" InputHeight " vValueCheck " (ValueCheck ? "+" : "-") "Checked", Value?
 Gui, Add, Edit, % "x+" Margins " yp w" EditWidth " h" InputHeight " vValueString", %ValueString%
